@@ -1,0 +1,38 @@
+import { IsNotEmpty, IsNumber, IsString, Length } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  @Length(1, 55)
+  nombre: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Length(1, 55)
+  apellido: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Length(1, 20)
+  numero_documento: string;
+
+  @IsString()
+  @Length(1, 15)
+  grado: string;
+
+  @IsString()
+  @Length(1, 15)
+  jornada: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  tipo_doc: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  rol: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  colegio: number;
+}
