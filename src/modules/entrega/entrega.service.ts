@@ -83,11 +83,11 @@ export class EntregaService {
     return this.entregaRepository.save(updatedEntrega);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number) {
     const result = await this.entregaRepository.delete(id);
     if (result.affected === 0) {
       throw new HttpException('Entrega not found', HttpStatus.NOT_FOUND);
     }
-    return;
+    return { message: 'Entrega deleted successfully' };
   }
 }

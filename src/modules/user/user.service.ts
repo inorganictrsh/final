@@ -80,10 +80,11 @@ export class UserService {
     return this.userRepository.save(updatedUser);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number) {
     const deleteResult = await this.userRepository.delete(id);
     if (deleteResult.affected === 0) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+    return { message: 'User deleted successfully' };
   }
 }

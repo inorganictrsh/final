@@ -21,8 +21,12 @@ export class DocService {
     return this.docRepository.find();
   }
 
-  findOne(id: number) {
-    return this.docRepository.findOne({ where: { id_doc: id } });
+  async findOne(id: number) {
+    const doc = await this.docRepository.findOne({ where: { id_doc: id } });
+    if (!doc) {
+      throw new HttpException('Doc not found', HttpStatus.NOT_FOUND);
+    }
+    return doc;
   }
 
   async update(id: number, updateDocDto: UpdateDocDto) {
@@ -37,8 +41,8 @@ export class DocService {
   async remove(id: number) {
     const result = await this.docRepository.delete(id);
     if (result.affected === 0) {
-      throw new HttpException('Colegio not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Documento not found', HttpStatus.NOT_FOUND);
     }
-    return { message: 'Colegio deleted successfully' };
+    return { message: 'Documento deleted successfully' };
   }
 }

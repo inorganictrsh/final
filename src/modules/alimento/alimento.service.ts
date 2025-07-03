@@ -39,8 +39,8 @@ export class AlimentoService {
   async remove(id: number) {
     const result = await this.alimentoRepository.delete(id);
     if (result.affected === 0) {
-      throw new HttpException('Colegio not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Alimento not found', HttpStatus.NOT_FOUND);
     }
-    return { message: 'Colegio deleted successfully' };
+    return { message: 'Alimento deleted successfully' };
   }
 }
