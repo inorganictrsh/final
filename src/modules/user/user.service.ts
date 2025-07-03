@@ -1,26 +1,89 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import { Rol } from '../rol/entities/rol.entity';
+import { Colegio } from '../colegio/entities/colegio.entity';
+import { Doc } from '../doc/entities/doc.entity';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+
+    @InjectRepository(Rol)
+    private readonly rolRepository: Repository<Rol>,
+
+    @InjectRepository(Colegio)
+    private readonly colegioRepository: Repository<Colegio>,
+
+    @InjectRepository(Doc)
+    private readonly docRepository: Repository<Doc>,
+  ) {}
+
+  async create(user: CreateUserDto) {
+    const rol = await this.rolRepository.findOne({
+      where: { id_rol: user.rol },
+    });
+    if (!rol) {
+      throw new HttpException('Rol not found', HttpStatus.NOT_FOUND);
+    }
+    const colegio = await this.colegioRepository.findOne({
+      where: { id_colegio: user.colegio },
+    });
+    if (!colegio) {
+      throw new HttpException('Colegio not found', HttpStatus.NOT_FOUND);
+    }
+    const doc = await this.docRepository.findOne({
+      where: { id_doc: user.tipo_doc },
+    });
+    if (!doc) {
+      throw new HttpException('Doc not found', HttpStatus.NOT_FOUND);
+    }
+    const newUser = this.userRepository.create({
+      nombre_user: user.nombre,
+      apellido_user: user.apellido,
+      numero_documento: user.numero_documento,
+      grado: user.grado,
+      jornada: user.jornada,
+      rol,
+      colegio,
+      tipo_doc: doc,
+    });
+    return this.userRepository.save(newUser);
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find({
+      relations: ['rol', 'colegio', 'tipo_doc'],
+      order: { id_user: 'ASC' },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id_user: id } });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id_user: id } });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    const updatedUser = Object.assign(user, updateUserDto);
+    return this.userRepository.save(updatedUser);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<void> {
+    const deleteResult = await this.userRepository.delete(id);
+    if (deleteResult.affected === 0) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
   }
 }

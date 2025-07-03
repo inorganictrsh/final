@@ -6,6 +6,7 @@ import { ColegioModule } from './modules/colegio/colegio.module';
 import { AlimentoModule } from './modules/alimento/alimento.module';
 import { UserModule } from './modules/user/user.module';
 import { EntregaModule } from './modules/entrega/entrega.module';
+import { RolModule } from './modules/rol/rol.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EntregaModule } from './modules/entrega/entrega.module';
     AlimentoModule,
     UserModule,
     EntregaModule,
+    RolModule,
   ],
 })
 export class AppModule {}

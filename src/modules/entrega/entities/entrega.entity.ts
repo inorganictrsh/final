@@ -1,7 +1,14 @@
 import { Alimento } from 'src/modules/alimento/entities/alimento.entity';
 import { User } from 'src/modules/user/entities/user.entity';
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
+@Entity()
 export class Entrega {
   @PrimaryGeneratedColumn()
   id_entrega: number;
@@ -13,13 +20,13 @@ export class Entrega {
   hora_entrega: Date;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'id_user' })
+  @JoinColumn({ name: 'id_emisor' })
   emisor: User;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'id_user' })
+  @JoinColumn({ name: 'id_receptor' })
   receptor: User;
 
   @ManyToOne(() => Alimento, (alimento) => alimento.id_alimento)
-  Alimento: Alimento;
+  alimento: Alimento;
 }

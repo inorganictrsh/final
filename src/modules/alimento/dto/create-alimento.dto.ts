@@ -4,5 +4,5 @@ export class CreateAlimentoDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 120)
-  nombre_alimento: string;
+  descripcion_alimento: string;
 }

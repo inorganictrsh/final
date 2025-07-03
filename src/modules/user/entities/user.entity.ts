@@ -1,8 +1,9 @@
 import { Colegio } from 'src/modules/colegio/entities/colegio.entity';
 import { Doc } from 'src/modules/doc/entities/doc.entity';
 import { Rol } from 'src/modules/rol/entities/rol.entity';
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id_user: number;
@@ -23,6 +24,6 @@ export class User {
   @ManyToOne(() => Rol, (rol) => rol.id_rol)
   rol: Rol;
 
-  @ManyToOne(() => Colegio, (colegio) => colegio.id_colegio)
-  colegio: Colegio[];
+  @ManyToOne(() => Colegio, (colegio) => colegio.users)
+  colegio: Colegio;
 }
