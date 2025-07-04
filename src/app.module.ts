@@ -26,6 +26,7 @@ import { RolModule } from './modules/rol/rol.module';
         entities: [__dirname + '/**/entities/*.entity{.ts,.js}'],
         autoLoadEntities: true,
         synchronize: true,
+        charset: 'utf8mb4',
       }),
     }),
     DocModule,

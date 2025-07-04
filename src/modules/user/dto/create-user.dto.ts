@@ -4,12 +4,12 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 55)
-  nombre: string;
+  nombre_user: string;
 
   @IsString()
   @IsNotEmpty()
   @Length(1, 55)
-  apellido: string;
+  apellido_user: string;
 
   @IsString()
   @IsNotEmpty()
@@ -35,4 +35,5 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsNumber()
   colegio: number;
+  nombre: string | undefined;
 }

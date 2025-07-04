@@ -44,8 +44,8 @@ export class UserService {
       throw new HttpException('Doc not found', HttpStatus.NOT_FOUND);
     }
     const newUser = this.userRepository.create({
-      nombre_user: user.nombre,
-      apellido_user: user.apellido,
+      nombre_user: user.nombre_user,
+      apellido_user: user.apellido_user,
       numero_documento: user.numero_documento,
       grado: user.grado,
       jornada: user.jornada,
@@ -55,7 +55,6 @@ export class UserService {
     });
     return this.userRepository.save(newUser);
   }
-
   async findAll(): Promise<User[]> {
     return this.userRepository.find({
       relations: ['rol', 'colegio', 'tipo_doc'],

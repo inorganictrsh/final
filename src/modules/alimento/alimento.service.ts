@@ -13,7 +13,7 @@ export class AlimentoService {
   ) {}
 
   create(createAlimentoDto: CreateAlimentoDto) {
-    const alimento = this.alimentoRepository.create({ ...createAlimentoDto });
+    const alimento = this.alimentoRepository.create(createAlimentoDto);
     return this.alimentoRepository.save(alimento);
   }
 

@@ -1,10 +1,32 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
+<p align="center">
+This project is a backend application built with NestJS, a progressive Node.js framework. It leverages TypeORM for database interactions, specifically with MySQL2, allowing for efficient and robust data management. The project is configured with essential development tools, including ESLint and Prettier for code quality and formatting, and Jest for comprehensive testing, covering unit, integration, and end-to-end tests.
+</p>
+**Runtime Dependencies:**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
+-   `@nestjs/common`
+    
+-   `@nestjs/config`
+    
+-   `@nestjs/core`
+    
+-   `@nestjs/mapped-types`
+    
+-   `@nestjs/platform-express`
+    
+-   `@nestjs/typeorm`
+    
+-   `class-transformer`
+    
+-   `class-validator`
+    
+-   `mysql2`
+    
+-   `reflect-metadata`
+    
+-   `rxjs`
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
